@@ -1,7 +1,8 @@
 export interface ProgramInfo {
     program: WebGLProgram,
     attribLocations: {
-        vertexPosition: GLint
+        vertexPosition: GLint,
+        vertexColor: GLint
     },
     uniformLocations: {
         projectionMatrix: WebGLUniformLocation | null,
