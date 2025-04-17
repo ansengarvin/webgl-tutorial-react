@@ -3,6 +3,7 @@ import { initShaderProgram } from './lib/webGL/shaders';
 import { ProgramInfo } from './lib/webGL/programInfo';
 import { initBuffers } from './lib/webGL/buffers';
 import { drawSceneSquare } from './lib/webGL/drawScene';
+import { mat4 } from 'gl-matrix';
 
 // Vertex shader program
 const vsSource = `
@@ -48,6 +49,9 @@ function App() {
     // for the vertices and so forth is established.
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
+    let squareRotation = 0.0;
+    let deltaTime = 0;
+
     if (!shaderProgram) {
       console.error("Failed to initialize shader program")
       return;
@@ -69,8 +73,23 @@ function App() {
     };
 
     const buffers = initBuffers(gl);
-    drawSceneSquare(gl, programInfo, buffers);
 
+    let then = 0
+    
+    function render(now: number) {
+      now *= 0.001;
+      deltaTime = now - then;
+      then = now;
+
+      if (gl) {
+        drawSceneSquare(gl, programInfo, buffers, squareRotation)
+        squareRotation += deltaTime;
+      }
+      
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
 
   }, []); // Runs once when the component mounts
 

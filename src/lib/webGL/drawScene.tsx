@@ -4,7 +4,7 @@ import { Buffers } from "./buffers";
 
 // Draw the scene from this tutorial:
 // https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context
-export function drawSceneSquare(gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: Buffers) {
+export function drawSceneSquare(gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: Buffers, squareRotation: number) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black, fully opaque
     gl.clearDepth(1.0); // Clear everything
     gl.enable(gl.DEPTH_TEST); // Enable depth testing
@@ -43,6 +43,13 @@ export function drawSceneSquare(gl: WebGLRenderingContext, programInfo: ProgramI
       modelViewMatrix, // matrix to translate
       [-0.0, 0.0, -6.0],
     ); // amount to translate
+
+    mat4.rotate(
+      modelViewMatrix,
+      modelViewMatrix,
+      squareRotation,
+      [0, 0, 1]
+    );
   
     // Tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute.
