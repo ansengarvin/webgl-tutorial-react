@@ -3,7 +3,6 @@ import { initShaderProgram } from './lib/webGL/shaders';
 import { ProgramInfo } from './lib/webGL/programInfo';
 import { initBuffers } from './lib/webGL/buffers';
 import { drawSceneSquare } from './lib/webGL/drawScene';
-import { mat4 } from 'gl-matrix';
 
 // Vertex shader program
 const vsSource = `
@@ -75,7 +74,7 @@ function App() {
     const buffers = initBuffers(gl);
 
     let then = 0
-    
+
     function render(now: number) {
       now *= 0.001;
       deltaTime = now - then;
