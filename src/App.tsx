@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { initShaderProgram } from './lib/webGL/shaders';
 import { ProgramInfo } from './lib/webGL/programInfo';
 import { initBuffers } from './lib/webGL/buffers';
-import { drawSceneSquare } from './lib/webGL/drawScene';
+import { drawSceneCube, drawSceneSquare } from './lib/webGL/drawScene';
 
 // Vertex shader program
 const vsSource = `
@@ -48,7 +48,7 @@ function App() {
     // for the vertices and so forth is established.
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
-    let squareRotation = 0.0;
+    let cubeRotation = 0.0;
     let deltaTime = 0;
 
     if (!shaderProgram) {
@@ -81,8 +81,8 @@ function App() {
       then = now;
 
       if (gl) {
-        drawSceneSquare(gl, programInfo, buffers, squareRotation)
-        squareRotation += deltaTime;
+        drawSceneCube(gl, programInfo, buffers, cubeRotation)
+        cubeRotation += deltaTime;
       }
       
       requestAnimationFrame(render);
